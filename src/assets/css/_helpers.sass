@@ -1,0 +1,87 @@
+.has-underline
+  text-decoration: underline
+
+.has-half-margin
+  &-left
+    margin-left: 0.5rem
+
+  &-right
+    margin-right: 0.5rem
+
+.has-half-opacity
+  opacity: 0.5
+
+.has-text-smaller
+  font-size: 0.9em
+
+.is-closer
+  margin-top: -1.5rem
+
+.is-big
+  font-size: 4.5rem
+
+.is-bold
+  font-weight: bold
+
+.is-clickable
+  cursor: pointer
+
+.is-not-allowed
+  cursor: not-allowed
+
+.has-default-cursor
+  cursor: default
+
+.is-flex-right
+  display: flex
+  justify-content: flex-end
+
+.is-v-center
+  display: flex
+  align-items: center
+
+.is-h-center
+  display: flex
+  justify-content: center
+
+.m-auto
+  margin: 0 auto
+
+.ml-auto
+  margin-left: auto
+
+.mb5
+  margin-bottom: 5px
+
+.mt5
+  margin-top: 5px
+
+.ml5
+  margin-left: 5px
+
+.mr5
+  margin-right: 5px
+
+@for $i from 1 through 10
+  $i: $i * 10
+  .m#{$i}
+    margin: 1px * $i
+  .mt#{$i}
+    margin-top: 1px * $i
+  .mb#{$i}
+    margin-bottom: 1px * $i
+  .mr#{$i}
+    margin-right: 1px * $i
+  .ml#{$i}
+    margin-left: 1px * $i
+  .pa#{$i}
+    padding: 1px * $i
+  .pt#{$i}
+    padding-top: 1px * $i
+  .pb#{$i}
+    padding-bottom: 1px * $i
+  .pr#{$i}
+    padding-right: 1px * $i
+  .pl#{$i}
+    padding-left: 1px * $i
+
