@@ -12,6 +12,7 @@
       <div class="navbar-menu">
         <div class="navbar-start">
           <router-link class="navbar-item is-tab" :to="{name: 'usagers.index'}">Usagers</router-link>
+          <router-link class="navbar-item is-tab" :to="{name: 'oeuvres.index'}">Oeuvres</router-link>
         </div>
       </div>
     </nav>

@@ -11,6 +11,7 @@ import UsagerUpdate from '@/components/usagers/Update.vue'
 import OeuvreIndex from '@/components/oeuvres/Index.vue'
 import OeuvreCreate from '@/components/oeuvres/Create.vue'
 import OeuvreUpdate from '@/components/oeuvres/Update.vue'
+import OeuvreShow from '@/components/oeuvres/Show.vue'
 
 Vue.use(Router)
 
@@ -54,6 +55,12 @@ export default new Router({
       path: '/oeuvres/:id/update',
       name: 'oeuvres.update',
       component: OeuvreUpdate,
+      props: true
+    },
+    {
+      path: '/oeuvres/:id',
+      name: 'oeuvres.show',
+      component: OeuvreShow,
       props: true
     },
     {

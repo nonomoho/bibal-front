@@ -23,9 +23,12 @@
             {{props.row.auteur}}
           </b-table-column>
           <b-table-column field="anneeSortie" label="Année de sortie" sortable>
-            {{props.row.anneeSortie}}
+            {{props.row.exemplaires}}
           </b-table-column>
           <b-table-column width="80" label="Action">
+            <router-link class="has-text-black" :to="{name: 'oeuvres.show', params: {id: props.row.oeuvre_id}}">
+              <b-icon class="is-clickable" icon="edit"></b-icon>
+            </router-link>
             <router-link class="has-text-black" :to="{name: 'oeuvres.update', params: {id: props.row.oeuvre_id}}">
               <b-icon class="is-clickable" icon="edit"></b-icon>
             </router-link>

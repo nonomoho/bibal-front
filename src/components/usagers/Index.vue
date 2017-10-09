@@ -60,7 +60,7 @@
     created () {
       axios.get('http://localhost:8083/usagers')
         .then(resp => {
-          this.usagers = resp.data
+          this.usagers = resp.data._embedded.usagers
         })
         .catch(e => {
           this.$toast.open({
