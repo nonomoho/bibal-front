@@ -37,7 +37,7 @@
             {{props.row.telephone}}
           </b-table-column>
           <b-table-column width="80" label="Action">
-            <router-link class="has-text-black" :to="{name: 'usagers.update', params: {id: props.row.id}}">
+            <router-link class="has-text-primary" :to="{name: 'usagers.update', params: {id: props.row.id}}">
               <b-icon class="is-clickable" icon="edit"></b-icon>
             </router-link>
             <b-icon @click.native="remove(props.row)" class="is-clickable" icon="delete" type="is-danger"></b-icon>

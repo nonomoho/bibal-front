@@ -67,7 +67,7 @@
           .then(resp => {
             this.$router.push({name: 'usagers.index'}, () => {
               this.$toast.open({
-                message: 'Modification effectué',
+                message: 'Modification effectuée',
                 type: 'is-primary'
               })
             })

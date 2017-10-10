@@ -13,6 +13,10 @@ import OeuvreCreate from '@/components/oeuvres/Create.vue'
 import OeuvreUpdate from '@/components/oeuvres/Update.vue'
 import OeuvreShow from '@/components/oeuvres/Show.vue'
 
+import ExemplaireIndex from '@/components/exemplaires/Index.vue'
+import ExemplaireCreate from '@/components/exemplaires/Create.vue'
+import ExemplaireUpdate from '@/components/exemplaires/Update.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -61,6 +65,22 @@ export default new Router({
       path: '/oeuvres/:id',
       name: 'oeuvres.show',
       component: OeuvreShow,
+      props: true
+    },
+    {
+      path: '/exemplaires',
+      name: 'exemplaires.index',
+      component: ExemplaireIndex
+    },
+    {
+      path: '/exemplaires/create',
+      name: 'exemplaires.create',
+      component: ExemplaireCreate
+    },
+    {
+      path: '/exemplaires/:id/update',
+      name: 'exemplaires.update',
+      component: ExemplaireUpdate,
       props: true
     },
     {

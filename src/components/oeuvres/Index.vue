@@ -23,13 +23,13 @@
             {{props.row.auteur}}
           </b-table-column>
           <b-table-column field="anneeSortie" label="Année de sortie" sortable>
-            {{props.row.exemplaires}}
+            {{props.row.anneeSortie}}
           </b-table-column>
-          <b-table-column width="80" label="Action">
-            <router-link class="has-text-black" :to="{name: 'oeuvres.show', params: {id: props.row.oeuvre_id}}">
-              <b-icon class="is-clickable" icon="edit"></b-icon>
+          <b-table-column width="120" label="Action">
+            <router-link class="has-text-info" :to="{name: 'oeuvres.show', params: {id: props.row.id}}">
+              <b-icon class="is-clickable" icon="visibility"></b-icon>
             </router-link>
-            <router-link class="has-text-black" :to="{name: 'oeuvres.update', params: {id: props.row.oeuvre_id}}">
+            <router-link class="has-text-primary" :to="{name: 'oeuvres.update', params: {id: props.row.id}}">
               <b-icon class="is-clickable" icon="edit"></b-icon>
             </router-link>
             <b-icon @click.native="remove(props.row)" class="is-clickable" icon="delete" type="is-danger"></b-icon>
@@ -52,7 +52,7 @@
     created () {
       axios.get('http://localhost:8083/oeuvres')
         .then(resp => {
-          this.oeuvres = resp.data
+          this.oeuvres = resp.data._embedded.oeuvres
         })
         .catch(e => {
           this.$toast.open({

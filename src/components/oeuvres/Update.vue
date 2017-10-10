@@ -61,7 +61,7 @@
           .then(resp => {
             this.$router.push({name: 'oeuvres.index'}, () => {
               this.$toast.open({
-                message: 'Modification effectué',
+                message: 'Modification effectuée',
                 type: 'is-primary'
               })
             })
