@@ -3,8 +3,8 @@
     <h1 class="title">Ajouter un exemplaire</h1>
     <form @submit.prevent="submit">
       <div class="field is-expanded">
+        <label class="label">État</label>
         <div class="select is-fullwidth">
-          <label class="label">État</label>
           <select v-model="exemplaire.etat">
             <option v-for="etat in etats" :value="etat.id">{{ etat.name }}</option>
           </select>
@@ -25,7 +25,8 @@
       </div>
       <div class="field is-grouped is-grouped-centered">
         <div class="control">
-          <router-link class="button is-outlined" :to="{name : 'exemplaires.index'}">Annuler</router-link>
+          <router-link class="button is-outlined" :to="{name : 'exemplaires.index'}">Annuler
+          </router-link>
         </div>
       </div>
     </form>
@@ -38,23 +39,23 @@
   export default {
     created () {
       axios.get('http://localhost:8083/oeuvres')
-        .then(resp => {
-          this.oeuvres = resp.data._embedded.oeuvres
+      .then(resp => {
+        this.oeuvres = resp.data._embedded.oeuvres
+      })
+      .catch(e => {
+        this.$toast.open({
+          message: 'Erreur',
+          type: 'is-danger'
         })
-        .catch(e => {
-          this.$toast.open({
-            message: 'Erreur',
-            type: 'is-danger'
-          })
-        })
+      })
     },
     data () {
       return {
         exemplaire: {oeuvre: {}},
         etats: [
-          {id: 0, name: 'Bon'},
-          {id: 1, name: 'Abimé'},
-          {id: 2, name: 'Inutilisable'}
+          {id: 'BON', name: 'Bon'},
+          {id: 'ABIME', name: 'Abimé'},
+          {id: 'INUTILISABLE', name: 'Inutilisable'}
         ],
         oeuvres: []
       }
@@ -62,20 +63,20 @@
     methods: {
       submit () {
         axios.post('http://localhost:8083/exemplaires', this.exemplaire)
-          .then(resp => {
-            this.$router.push({name: 'exemplaires.index'}, () => {
-              this.$toast.open({
-                message: 'Ajout effectué',
-                type: 'is-primary'
-              })
-            })
-          })
-          .catch(e => {
+        .then(resp => {
+          this.$router.push({name: 'exemplaires.index'}, () => {
             this.$toast.open({
-              message: 'Erreur',
-              type: 'is-danger'
+              message: 'Ajout effectué',
+              type: 'is-primary'
             })
           })
+        })
+        .catch(e => {
+          this.$toast.open({
+            message: 'Erreur',
+            type: 'is-danger'
+          })
+        })
       }
     }
   }
