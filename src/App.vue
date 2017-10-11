@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <router-link class="navbar-item" :to="{name: 'home'}">BIBAL</router-link>
         <button class="button navbar-burger">

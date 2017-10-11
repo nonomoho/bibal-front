@@ -6,7 +6,7 @@
           BIBAL
         </h1>
         <h2 class="subtitle">
-          Freismuth
+          Freismuth - Schersach
         </h2>
       </div>
     </div>

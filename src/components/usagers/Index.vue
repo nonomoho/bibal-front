@@ -13,7 +13,7 @@
           <div class="field">
             <div class="control has-icons-left">
               <b-icon icon="search"></b-icon>
-              <input @input="findUsager" type="search" class="input" v-model="search">
+              <input type="search" class="input" v-model="search">
             </div>
           </div>
         </div>
@@ -22,7 +22,7 @@
 
 
     <section class="mt10">
-      <b-table :data="usagers">
+      <b-table :data="filteredUsagers">
         <template scope="props">
           <b-table-column field="nom" label="Nom" sortable>
             {{props.row.nom}}
@@ -37,10 +37,12 @@
             {{props.row.telephone}}
           </b-table-column>
           <b-table-column width="80" label="Action">
-            <router-link class="has-text-primary" :to="{name: 'usagers.update', params: {id: props.row.id}}">
+            <router-link class="has-text-primary"
+                         :to="{name: 'usagers.update', params: {id: props.row.id}}">
               <b-icon class="is-clickable" icon="edit"></b-icon>
             </router-link>
-            <b-icon @click.native="remove(props.row)" class="is-clickable" icon="delete" type="is-danger"></b-icon>
+            <b-icon @click.native="remove(props.row)" class="is-clickable" icon="delete"
+                    type="is-danger"></b-icon>
           </b-table-column>
         </template>
         <template slot="empty">
@@ -54,20 +56,20 @@
 
 <script>
   import axios from 'axios'
-  import { without, debounce } from 'lodash'
+  import { without } from 'lodash'
 
   export default {
     created () {
       axios.get('http://localhost:8083/usagers')
-        .then(resp => {
-          this.usagers = resp.data._embedded.usagers
+      .then(resp => {
+        this.usagers = resp.data._embedded.usagers
+      })
+      .catch(e => {
+        this.$toast.open({
+          message: 'Erreur',
+          type: 'is-danger'
         })
-        .catch(e => {
-          this.$toast.open({
-            message: 'Erreur',
-            type: 'is-danger'
-          })
-        })
+      })
     },
     data () {
       return {
@@ -75,13 +77,14 @@
         search: ''
       }
     },
+    computed: {
+      filteredUsagers () {
+        return this.usagers.filter(usager => {
+          return usager.nom.toLowerCase().includes(this.search.toLocaleLowerCase())
+        })
+      }
+    },
     methods: {
-      findUsager: debounce(function () {
-        axios.get('http://localhost:8083/usagers', {params: {q: this.search}})
-          .then(resp => {
-            this.usagers = resp.data
-          })
-      }, 400),
       remove (usager) {
         this.$dialog.confirm({
           title: 'Supprimer l\'usager',
@@ -91,13 +94,13 @@
           type: 'is-danger',
           onConfirm: () => {
             axios.delete(`http://localhost:8083/usagers/${usager.id}`)
-              .then(resp => {
-                this.usagers = without(this.usagers, usager)
-                this.$toast.open({
-                  message: `${usager.nom} ${usager.prenom} a bien été supprimé(e)`,
-                  type: 'is-primary'
-                })
+            .then(resp => {
+              this.usagers = without(this.usagers, usager)
+              this.$toast.open({
+                message: `${usager.nom} ${usager.prenom} a bien été supprimé(e)`,
+                type: 'is-primary'
               })
+            })
           }
         })
       }
