@@ -1,19 +1,19 @@
 <template>
   <section class="section">
-    <h1 class="title">Liste des exemplaires</h1>
+    <h1 class="title">Liste des réservations</h1>
     <div class="level">
       <div class="level-left">
         <div class="level-item">
-          <router-link class="button is-primary" :to="{name: 'exemplaires.create'}">
+          <router-link class="button is-primary" :to="{name: 'reservations.create'}">
             <b-icon icon="add"></b-icon>
-            <span>Ajouter un exemplaire</span>
+            <span>Ajouter un réservation</span>
           </router-link>
         </div>
       </div>
     </div>
 
     <section class="mt10">
-      <b-table :data="exemplaires">
+      <b-table :data="reservations">
         <template scope="props">
           <b-table-column field="etat" label="État" sortable>
             {{props.row.etat}}
@@ -22,14 +22,14 @@
             {{props.row.oeuvre.titre}}
           </b-table-column>
           <b-table-column width="80" label="Action">
-            <router-link class="has-text-primary" :to="{name: 'exemplaires.update', params: {id: props.row.id}}">
+            <router-link class="has-text-primary" :to="{name: 'reservations.update', params: {id: props.row.id}}">
               <b-icon class="is-clickable" icon="edit"></b-icon>
             </router-link>
             <b-icon @click.native="remove(props.row)" class="is-clickable" icon="delete" type="is-danger"></b-icon>
           </b-table-column>
         </template>
         <template slot="empty">
-          <em>Aucune exemplaire</em>
+          <em>Aucune reservation</em>
         </template>
       </b-table>
     </section>
@@ -43,39 +43,39 @@
 
   export default {
     created () {
-      axios.get('http://localhost:8083/exemplaires')
-        .then(resp => {
-          this.exemplaires = resp.data._embedded.exemplaires
+      axios.get('http://localhost:8083/reservations')
+      .then(resp => {
+        this.reservations = resp.data._embedded.reservations
+      })
+      .catch(e => {
+        this.$toast.open({
+          message: 'Erreur',
+          type: 'is-danger'
         })
-        .catch(e => {
-          this.$toast.open({
-            message: 'Erreur',
-            type: 'is-danger'
-          })
-        })
+      })
     },
     data () {
       return {
-        exemplaires: []
+        reservations: []
       }
     },
     methods: {
-      remove (exemplaire) {
+      remove (reservation) {
         this.$dialog.confirm({
-          title: 'Supprimer l\'exemplaire',
-          message: `Êtes-vous sûr de vouloir supprimer l'exemplaire ${exemplaire.titre} de ${exemplaire.auteur} ?`,
+          title: 'Supprimer l\'reservation',
+          message: `Êtes-vous sûr de vouloir supprimer l'reservation ${reservation.titre} de ${reservation.auteur} ?`,
           cancelText: 'Annuler',
           confirmText: 'Oui je le veux',
           type: 'is-danger',
           onConfirm: () => {
-            axios.delete(`http://localhost:8083/exemplaires/${exemplaire.exemplaire_id}`)
-              .then(resp => {
-                this.exemplaires = without(this.exemplaires, exemplaire)
-                this.$toast.open({
-                  message: `${exemplaire.titre} de ${exemplaire.auteur} a bien été supprimé(e)`,
-                  type: 'is-primary'
-                })
+            axios.delete(`http://localhost:8083/reservations/${reservation.id}`)
+            .then(resp => {
+              this.reservations = without(this.reservations, reservation)
+              this.$toast.open({
+                message: `Exemplaire supprimé`,
+                type: 'is-primary'
               })
+            })
           }
         })
       }

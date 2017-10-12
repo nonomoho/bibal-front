@@ -1,20 +1,28 @@
 <template>
   <section class="section">
-    <h1 class="title">Ajouter un exemplaire</h1>
+    <h1 class="title">Ajouter un réservation</h1>
     <form @submit.prevent="submit">
-      <div class="field is-expanded">
-        <label class="label">État</label>
-        <div class="select is-fullwidth">
-          <select v-model="exemplaire.etat">
-            <option v-for="etat in etats" :value="etat.id">{{ etat.name }}</option>
-          </select>
+      <div class="field">
+        <div class="control">
+          <label class="label">Date réservation</label>
+          <date-picker v-model="reservation.dateEmprunt"></date-picker>
         </div>
       </div>
       <div class="field is-expanded">
         <label class="label">Oeuvre</label>
         <div class="select is-fullwidth">
-          <select v-model="exemplaire.oeuvre.id">
+          <select v-model="reservation.oeuvreId">
             <option v-for="oeuvre in oeuvres" :value="oeuvre.id">{{ oeuvre.titre }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="field is-expanded">
+        <label class="label">Usager</label>
+        <div class="select is-fullwidth">
+          <select v-model="reservation.usagerId">
+            <option v-for="usager in usagers" :value="usager.id">{{ usager.nom }} {{ usager.prenom
+              }}
+            </option>
           </select>
         </div>
       </div>
@@ -25,7 +33,7 @@
       </div>
       <div class="field is-grouped is-grouped-centered">
         <div class="control">
-          <router-link class="button is-outlined" :to="{name : 'exemplaires.index'}">Annuler
+          <router-link class="button is-outlined" :to="{name : 'reservations.index'}">Annuler
           </router-link>
         </div>
       </div>
@@ -48,32 +56,46 @@
           type: 'is-danger'
         })
       })
+
+      axios.get('http://localhost:8083/usagers')
+      .then(resp => {
+        this.usagers = resp.data._embedded.usagers
+      })
+      .catch(e => {
+        this.$toast.open({
+          message: 'Erreur',
+          type: 'is-danger'
+        })
+      })
     },
     data () {
       return {
-        exemplaire: {oeuvre: {}},
+        reservation: {
+          oeuvreId: ''
+        },
         etats: [
           {id: 'BON', name: 'Bon'},
           {id: 'ABIME', name: 'Abimé'},
           {id: 'INUTILISABLE', name: 'Inutilisable'}
         ],
-        oeuvres: []
+        oeuvres: [],
+        usagers: []
       }
     },
     methods: {
       submit () {
-        axios.post('http://localhost:8083/exemplaires', this.exemplaire)
+        axios.post('http://localhost:8083/reservations', this.reservation)
         .then(resp => {
-          this.$router.push({name: 'exemplaires.index'}, () => {
+          this.$router.push({name: 'reservations.index'}, () => {
             this.$toast.open({
-              message: 'Ajout effectué',
+              message: 'Emprunt enregistré',
               type: 'is-primary'
             })
           })
         })
         .catch(e => {
           this.$toast.open({
-            message: 'Erreur',
+            message: `Erreur : ${e.response.data}`,
             type: 'is-danger'
           })
         })

@@ -57,9 +57,9 @@
       return {
         exemplaire: {oeuvre: {}},
         etats: [
-          {id: 0, name: 'Bon'},
-          {id: 1, name: 'Abimé'},
-          {id: 2, name: 'Inutilisable'}
+          {id: 'BON', name: 'Bon'},
+          {id: 'ABIME', name: 'Abimé'},
+          {id: 'INUTILISABLE', name: 'Inutilisable'}
         ],
         oeuvres: []
       }
