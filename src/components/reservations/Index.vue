@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <h1 class="title">Liste des réservations</h1>
+    <h1 class="title">Liste des réservations en cours</h1>
     <div class="level">
       <div class="level-left">
         <div class="level-item">
@@ -13,19 +13,24 @@
     </div>
 
     <section class="mt10">
-      <b-table :data="reservations">
+      <b-table :data="reservEnCours">
         <template scope="props">
-          <b-table-column field="etat" label="État" sortable>
-            {{props.row.etat}}
+          <b-table-column field="usager.nom" label="Usager" sortable>
+            {{props.row.usager.nom}} {{props.row.usager.prenom}}
+          </b-table-column>
+          <b-table-column field="dateEmprunt" label="Date début réservation" sortable>
+            {{props.row.dateReservation}}
           </b-table-column>
           <b-table-column field="oeuvre.titre" label="Titre de l'oeuvre" sortable>
             {{props.row.oeuvre.titre}}
           </b-table-column>
           <b-table-column width="80" label="Action">
-            <router-link class="has-text-primary" :to="{name: 'reservations.update', params: {id: props.row.id}}">
+            <router-link class="has-text-primary"
+                         :to="{name: 'reservations.update', params: {id: props.row.id}}">
               <b-icon class="is-clickable" icon="edit"></b-icon>
             </router-link>
-            <b-icon @click.native="remove(props.row)" class="is-clickable" icon="delete" type="is-danger"></b-icon>
+            <b-icon @click.native="remove(props.row)" class="is-clickable" icon="delete"
+                    type="is-danger"></b-icon>
           </b-table-column>
         </template>
         <template slot="empty">
@@ -57,6 +62,13 @@
     data () {
       return {
         reservations: []
+      }
+    },
+    computed: {
+      reservEnCours () {
+        return this.reservations.filter(reserv => {
+          return reserv.etat === 'EN_COURS'
+        })
       }
     },
     methods: {

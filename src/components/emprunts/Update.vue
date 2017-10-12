@@ -52,6 +52,7 @@
         const emprunt = resp.data
         const embed = resp.data._embedded
         this.emprunt = {
+          id: emprunt.id,
           dateEmprunt: emprunt.dateEmprunt,
           oeuvreId: embed.exemplaire.oeuvre.id,
           usagerId: embed.usager.id
@@ -96,7 +97,7 @@
     },
     methods: {
       submit () {
-        axios.post('http://localhost:8083/emprunts', this.emprunt)
+        axios.put(`http://localhost:8083/emprunts/${this.emprunt.id}`, this.emprunt)
         .then(resp => {
           this.$router.push({name: 'emprunts.index'}, () => {
             this.$toast.open({

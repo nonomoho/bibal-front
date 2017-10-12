@@ -5,13 +5,13 @@
       <div class="field">
         <div class="control">
           <label class="label">Date réservation</label>
-          <date-picker v-model="reservation.dateEmprunt"></date-picker>
+          <date-picker v-model="reservation.dateReservation"></date-picker>
         </div>
       </div>
       <div class="field is-expanded">
         <label class="label">Oeuvre</label>
         <div class="select is-fullwidth">
-          <select v-model="reservation.oeuvreId">
+          <select v-model="reservation.oeuvre.id">
             <option v-for="oeuvre in oeuvres" :value="oeuvre.id">{{ oeuvre.titre }}</option>
           </select>
         </div>
@@ -19,9 +19,9 @@
       <div class="field is-expanded">
         <label class="label">Usager</label>
         <div class="select is-fullwidth">
-          <select v-model="reservation.usagerId">
-            <option v-for="usager in usagers" :value="usager.id">{{ usager.nom }} {{ usager.prenom
-              }}
+          <select v-model="reservation.usager.id">
+            <option v-for="usager in usagers" :value="usager.id">
+              {{ usager.nom }} {{ usager.prenom}}
             </option>
           </select>
         </div>
@@ -70,9 +70,7 @@
     },
     data () {
       return {
-        reservation: {
-          oeuvreId: ''
-        },
+        reservation: {oeuvre: {}, usager: {}},
         etats: [
           {id: 'BON', name: 'Bon'},
           {id: 'ABIME', name: 'Abimé'},
@@ -88,7 +86,7 @@
         .then(resp => {
           this.$router.push({name: 'reservations.index'}, () => {
             this.$toast.open({
-              message: 'Emprunt enregistré',
+              message: 'Réservation enregistrée',
               type: 'is-primary'
             })
           })
