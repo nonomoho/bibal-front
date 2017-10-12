@@ -17,6 +17,14 @@ import ExemplaireIndex from '@/components/exemplaires/Index.vue'
 import ExemplaireCreate from '@/components/exemplaires/Create.vue'
 import ExemplaireUpdate from '@/components/exemplaires/Update.vue'
 
+import ReservationIndex from '@/components/reservations/Index.vue'
+import ReservationCreate from '@/components/reservations/Create.vue'
+import ReservationUpdate from '@/components/reservations/Update.vue'
+
+import EmpruntIndex from '@/components/emprunts/Index.vue'
+import EmpruntCreate from '@/components/emprunts/Create.vue'
+import EmpruntUpdate from '@/components/emprunts/Update.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -81,6 +89,38 @@ export default new Router({
       path: '/exemplaires/:id/update',
       name: 'exemplaires.update',
       component: ExemplaireUpdate,
+      props: true
+    },
+    {
+      path: '/reservations',
+      name: 'reservations.index',
+      component: ReservationIndex
+    },
+    {
+      path: '/reservations/create',
+      name: 'reservations.create',
+      component: ReservationCreate
+    },
+    {
+      path: '/reservations/:id/update',
+      name: 'reservations.update',
+      component: ReservationUpdate,
+      props: true
+    },
+    {
+      path: '/emprunts',
+      name: 'emprunts.index',
+      component: EmpruntIndex
+    },
+    {
+      path: '/emprunts/create',
+      name: 'emprunts.create',
+      component: EmpruntCreate
+    },
+    {
+      path: '/emprunts/:id/update',
+      name: 'emprunts.update',
+      component: EmpruntUpdate,
       props: true
     },
     {

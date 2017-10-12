@@ -11,9 +11,21 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
-          <router-link class="navbar-item is-tab" :to="{name: 'usagers.index'}">Usagers</router-link>
-          <router-link class="navbar-item is-tab" :to="{name: 'oeuvres.index'}">Oeuvres</router-link>
-          <router-link class="navbar-item is-tab" :to="{name: 'exemplaires.index'}">Exemplaires</router-link>
+          <router-link class="navbar-item is-tab" :to="{name: 'reservations.index'}">
+            Réservations
+          </router-link>
+          <router-link class="navbar-item is-tab" :to="{name: 'emprunts.index'}">
+            Emprunts
+          </router-link>
+          <router-link class="navbar-item is-tab" :to="{name: 'usagers.index'}">
+            Usagers
+          </router-link>
+          <router-link class="navbar-item is-tab" :to="{name: 'oeuvres.index'}">
+            Oeuvres
+          </router-link>
+          <router-link class="navbar-item is-tab" :to="{name: 'exemplaires.index'}">
+            Exemplaires
+          </router-link>
         </div>
       </div>
     </nav>

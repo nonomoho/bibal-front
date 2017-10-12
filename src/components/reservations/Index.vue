@@ -68,11 +68,11 @@
           confirmText: 'Oui je le veux',
           type: 'is-danger',
           onConfirm: () => {
-            axios.delete(`http://localhost:8083/exemplaires/${exemplaire.id}`)
+            axios.delete(`http://localhost:8083/exemplaires/${exemplaire.exemplaire_id}`)
               .then(resp => {
                 this.exemplaires = without(this.exemplaires, exemplaire)
                 this.$toast.open({
-                  message: `Exemplaire supprimé`,
+                  message: `${exemplaire.titre} de ${exemplaire.auteur} a bien été supprimé(e)`,
                   type: 'is-primary'
                 })
               })
