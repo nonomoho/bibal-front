@@ -15,11 +15,17 @@
     <section class="mt10">
       <b-table :data="emprunts">
         <template scope="props">
-          <b-table-column field="etat" label="État" sortable>
-            {{props.row.etat}}
+          <b-table-column field="usager.nom" label="Usager" sortable>
+            {{props.row.usager.nom}} {{props.row.usager.prenom}}
           </b-table-column>
-          <b-table-column field="oeuvre.titre" label="Titre de l'oeuvre" sortable>
+          <b-table-column field="dateEmprunt" label="Date début emprunt" sortable>
+            {{props.row.dateEmprunt}}
+          </b-table-column>
+          <b-table-column field="oeuvre.titre" label="Oeuvre" sortable>
             {{props.row.oeuvre.titre}}
+          </b-table-column>
+          <b-table-column field="exemplaire.etat" label="État exemplaire" sortable>
+            {{props.row.exemplaire.etat}}
           </b-table-column>
           <b-table-column width="80" label="Action">
             <router-link class="has-text-primary"
@@ -29,7 +35,7 @@
           </b-table-column>
         </template>
         <template slot="empty">
-          <em>Aucune emprunt</em>
+          <em>Aucun emprunt</em>
         </template>
       </b-table>
     </section>
@@ -48,7 +54,7 @@
       })
       .catch(e => {
         this.$toast.open({
-          message: 'Erreur',
+          message: `Erreur : ${e.response.data}`,
           type: 'is-danger'
         })
       })

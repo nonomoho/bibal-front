@@ -20,7 +20,9 @@
         <label class="label">Usager</label>
         <div class="select is-fullwidth">
           <select v-model="emprunt.usagerId">
-            <option v-for="usager in usagers" :value="usager.id">{{ usager.nom }} {{ usager.prenom }}</option>
+            <option v-for="usager in usagers" :value="usager.id">{{ usager.nom }} {{ usager.prenom
+              }}
+            </option>
           </select>
         </div>
       </div>
@@ -84,16 +86,16 @@
       submit () {
         axios.post('http://localhost:8083/emprunts', this.emprunt)
         .then(resp => {
-//          this.$router.push({name: 'emprunts.index'}, () => {
-//            this.$toast.open({
-//              message: 'Ajout effectué',
-//              type: 'is-primary'
-//            })
-//          })
+          this.$router.push({name: 'emprunts.index'}, () => {
+            this.$toast.open({
+              message: 'Emprunt enregistré',
+              type: 'is-primary'
+            })
+          })
         })
         .catch(e => {
           this.$toast.open({
-            message: 'Erreur',
+            message: `Erreur : ${e.response.data}`,
             type: 'is-danger'
           })
         })
